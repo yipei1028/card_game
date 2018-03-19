@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Card Game</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./main.js">
+</head>
+
+<body onload="shuffle();">
+
+    <span class="nav-container">
+    </span><span class="card-container">
+        <div class="row">
+            <div class="card"><img src="./images/poker-back.jpeg" id="card0" onclick="match(0)" alt=""></div>
+            <div class="card"><img src="./images/poker-back.jpeg" id="card1" onclick="match(1)" alt=""></div>
+            <div class="card"><img src="./images/poker-back.jpeg" id="card2" onclick="match(2)" alt=""></div>
+             <div class="card"><img src="./images/poker-back.jpeg" id="card3" onclick="match(3)" alt=""></div>
+        </div>
+        <div class="row">
+            <div class="card"><img src="./images/poker-back.jpeg" id="card4" onclick="match(4)" alt=""></div>
+            <div class="card"><img src="./images/poker-back.jpeg" id="card5" onclick="match(5)" alt=""></div>
+            <div class="card"><img src="./images/poker-back.jpeg" id="card6" onclick="match(6)" alt=""></div>
+            <div class="card"><img src="./images/poker-back.jpeg" id="card7" onclick="match(7)" alt=""></div>
+        </div>
+        <div class="row">
+            <div class="card"><img src="./images/poker-back.jpeg" id="card8" onclick="match(8)" alt=""></div>
+            <div class="card"><img src="./images/poker-back.jpeg" id="card9" onclick="match(9)" alt=""></div>
+            <div class="card"><img src="./images/poker-back.jpeg" id="card10" onclick="match(10)" alt=""></div>
+             <div class="card"><img src="./images/poker-back.jpeg" id="card11" onclick="match(11)" alt=""></div>
+        </div>
+    </span>
+</body>
+
+<script>
+    let cards = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5];
+    let secondTime = 0;
+    let secondId = -1;
+
+    function match(id) {
+        if (cards[id] == -1 || id == secondId) { //如果這張牌已經被翻過，就不要再翻了
+            return;
+        }
+        if (secondTime == 1) { //如果是第二次翻牌，要判斷兩張牌一不一樣
+            console.log(id);
+            console.log(secondId);
+            if (cards[secondId] == cards[id]) { //如果第一張和第二張牌一樣，就朝上吧！
+                document.getElementById("card" + id).src = "./images/img" + cards[id] + ".png";
+                setTimeout("faceUp(" + id + "," + secondId + ")", 300);
+                success();
+            } else {
+                document.getElementById("card" + id).src = "./images/img" + cards[id] + ".png";
+                setTimeout("faceDown(" + id + "," + secondId + ")", 300);
+                // faceDown(id, secondId); //如果第一張和第二張牌不一樣，就覆蓋牌，結束這回合～～～
+            }
+            secondTime = 0;
+        }
+        else { //如果是第一次翻牌
+            document.getElementById("card" + id).src = "./images/img" + cards[id] + ".png";
+            secondTime = 1;
+            secondId = id;
+        }
+    }
+
+    function faceDown(id, secondId) {
+        document.getElementById("card" + id).src = "./images/poker-back.jpeg";
+        document.getElementById("card" + secondId).src = "./images/poker-back.jpeg";
+    }
+
+    function faceUp(id, secondId) { //配對成功的牌，留在檯面上
+        document.getElementById("card" + id).src = "./images/img" + cards[id] + ".png";
+        document.getElementById("card" + secondId).src = "./images/img" + cards[secondId] + ".png";
+        cards[id] = -1; //翻成功的話就把id指定為-1
+        cards[secondId] = -1; //翻成功的話就把id指定為-1
+    }
+
+    function success() { //成功的話就結束遊戲，這個遊戲不會有失敗。
+        for (var i = 0; i < 12; i++) {
+            if (cards[i] != -1) //每翻一張牌，就會把他變成-1。如果全度都是-1，表示遊戲結束。
+                return;
+        }
+        alert("You made it!!!");
+        location.reload(); //刷新頁面喔～
+        shuffle();
+    }
+
+    function shuffle() { //重新洗牌
+        let a, b, temp;
+        for (i = 0; i < 12; i++) {
+            let a = Math.floor(Math.random() * 12);
+            let b = Math.floor(Math.random() * 12);
+            temp = cards[a];
+            cards[a] = cards[b];
+            cards[b] = temp;
+        }
+    }
+
+//判斷是不是第一次翻牌
+//記住牌的花色
+//翻第二次牌
+//判斷是不是跟第一張牌花色相同
+//如果不同就兩張都翻回去(寫一個覆蓋牌的function)
+//如果相同就保留那兩張牌
+//然後回到第一個步驟
+
+</script>
+
+</html>
