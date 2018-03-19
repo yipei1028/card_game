@@ -49,8 +49,8 @@
             console.log(secondId);
             if (cards[secondId] == cards[id]) { //如果第一張和第二張牌一樣，就朝上吧！
                 document.getElementById("card" + id).src = "./images/img" + cards[id] + ".png";
-                setTimeout("faceUp(" + id + "," + secondId + ")", 300);
-                success();
+                faceUp(id, secondId);
+                setTimeout("success()", 300);
             } else {
                 document.getElementById("card" + id).src = "./images/img" + cards[id] + ".png";
                 setTimeout("faceDown(" + id + "," + secondId + ")", 300);
@@ -82,7 +82,7 @@
             if (cards[i] != -1) //每翻一張牌，就會把他變成-1。如果全度都是-1，表示遊戲結束。
                 return;
         }
-        alert("You made it!!!");
+        alert("You made it!!!!!!");
         location.reload(); //刷新頁面喔～
         shuffle();
     }
