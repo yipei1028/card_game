@@ -7,30 +7,56 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Card Game</title>
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./main.js">
 </head>
 
 <body onload="shuffle();">
 
     <span class="nav-container">
-    </span><span class="card-container">
+        <p id="demo"></p>
+        <button onClick="countFunction()">Start</button>
+    </span>
+    <span class="card-container">
         <div class="row">
-            <div class="card"><img src="./images/poker-back.jpeg" id="card0" onclick="match(0)" alt=""></div>
-            <div class="card"><img src="./images/poker-back.jpeg" id="card1" onclick="match(1)" alt=""></div>
-            <div class="card"><img src="./images/poker-back.jpeg" id="card2" onclick="match(2)" alt=""></div>
-             <div class="card"><img src="./images/poker-back.jpeg" id="card3" onclick="match(3)" alt=""></div>
+            <div class="card">
+                <img src="./images/poker-back.jpeg" id="card0" onclick="match(0)" alt="">
+            </div>
+            <div class="card">
+                <img src="./images/poker-back.jpeg" id="card1" onclick="match(1)" alt="">
+            </div>
+            <div class="card">
+                <img src="./images/poker-back.jpeg" id="card2" onclick="match(2)" alt="">
+            </div>
+            <div class="card">
+                <img src="./images/poker-back.jpeg" id="card3" onclick="match(3)" alt="">
+            </div>
         </div>
         <div class="row">
-            <div class="card"><img src="./images/poker-back.jpeg" id="card4" onclick="match(4)" alt=""></div>
-            <div class="card"><img src="./images/poker-back.jpeg" id="card5" onclick="match(5)" alt=""></div>
-            <div class="card"><img src="./images/poker-back.jpeg" id="card6" onclick="match(6)" alt=""></div>
-            <div class="card"><img src="./images/poker-back.jpeg" id="card7" onclick="match(7)" alt=""></div>
+            <div class="card">
+                <img src="./images/poker-back.jpeg" id="card4" onclick="match(4)" alt="">
+            </div>
+            <div class="card">
+                <img src="./images/poker-back.jpeg" id="card5" onclick="match(5)" alt="">
+            </div>
+            <div class="card">
+                <img src="./images/poker-back.jpeg" id="card6" onclick="match(6)" alt="">
+            </div>
+            <div class="card">
+                <img src="./images/poker-back.jpeg" id="card7" onclick="match(7)" alt="">
+            </div>
         </div>
         <div class="row">
-            <div class="card"><img src="./images/poker-back.jpeg" id="card8" onclick="match(8)" alt=""></div>
-            <div class="card"><img src="./images/poker-back.jpeg" id="card9" onclick="match(9)" alt=""></div>
-            <div class="card"><img src="./images/poker-back.jpeg" id="card10" onclick="match(10)" alt=""></div>
-             <div class="card"><img src="./images/poker-back.jpeg" id="card11" onclick="match(11)" alt=""></div>
+            <div class="card">
+                <img src="./images/poker-back.jpeg" id="card8" onclick="match(8)" alt="">
+            </div>
+            <div class="card">
+                <img src="./images/poker-back.jpeg" id="card9" onclick="match(9)" alt="">
+            </div>
+            <div class="card">
+                <img src="./images/poker-back.jpeg" id="card10" onclick="match(10)" alt="">
+            </div>
+            <div class="card">
+                <img src="./images/poker-back.jpeg" id="card11" onclick="match(11)" alt="">
+            </div>
         </div>
     </span>
 </body>
@@ -98,13 +124,33 @@
         }
     }
 
-//判斷是不是第一次翻牌
-//記住牌的花色
-//翻第二次牌
-//判斷是不是跟第一張牌花色相同
-//如果不同就兩張都翻回去(寫一個覆蓋牌的function)
-//如果相同就保留那兩張牌
-//然後回到第一個步驟
+    //判斷是不是第一次翻牌
+    //記住牌的花色
+    //翻第二次牌
+    //判斷是不是跟第一張牌花色相同
+    //如果不同就兩張都翻回去(寫一個覆蓋牌的function)
+    //如果相同就保留那兩張牌
+    //然後回到第一個步驟
+
+    var countDown = new Date(65000);
+    var minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((countDown % (1000 * 60)) / 1000);
+    document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
+    var countFunction = function () {
+        var x = setInterval(function () {
+            if (seconds > 0) {
+                seconds--;
+                // console.log(seconds);
+                document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
+            } else if (seconds == 0 & minutes > 0) {
+                minutes--;
+                seconds = 59;
+            } else {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "Gameover";
+            }
+        }, 1000);
+    };
 
 </script>
 
